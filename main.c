@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
     Workload workloads[15];  // Assuming a maximum of 10 workloads
     int num_workloads;
 
-    load_workloads(argv[0], workloads, &num_workloads);
+    load_workloads(argv[1], workloads, &num_workloads);
 
     for (int i = 0; i < num_workloads; i++) {
         printf("Carga %d\n", i + 1);
