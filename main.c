@@ -131,7 +131,8 @@ void load_workloads(const char* filename, Workload workloads[], int* num_workloa
 }
 
 bool escalonavel_executivo_ciclico(Workload workload) {
-    ciclo_maior = 1;
+    
+	ciclo_maior = 1;
     ciclo_menor = 0;
     num_divisores = 0;
     
@@ -139,6 +140,11 @@ bool escalonavel_executivo_ciclico(Workload workload) {
     int maior_te = maior_tempo_execucao(workload);
     bool e_divisor;
     bool escalonavel;
+    
+    if(calc_taxa_utl(workload, true) > 1) 
+		escalonavel = false;
+	else 
+		escalonavel = true;
     
 	for (int i = 0; i < workload.num_tarefas; i++) {
         ciclo_maior = lcm(ciclo_maior, workload.tarefas[i].periodo);
@@ -150,9 +156,7 @@ bool escalonavel_executivo_ciclico(Workload workload) {
 			num_divisores++;  
 		}
 	}
-	
-	escalonavel = false;
-	
+
 	for(int i = 0; i < num_divisores; i++){
 		
 		e_divisor = true;
@@ -164,9 +168,8 @@ bool escalonavel_executivo_ciclico(Workload workload) {
 			}	
 		}
 		if(e_divisor){
-			escalonavel = true;
 			ciclo_menor = divisores[i];
-			//return true;
+			break;
 		}
 	}
     
